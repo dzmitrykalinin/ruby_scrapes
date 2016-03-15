@@ -20,8 +20,10 @@ costs = []
 																	'min-price' => "4000", 'max-price' => "7000", 'body_type[]' => "1", 'min-year' => "2002", 
 																	'fuel[]' => "1", 'min-capacity' => "2.2", 'max-capacity' => "3", 'drivetrain[]' => "2"}).body)
 	
-	cars.push(page['result']['advertisements'].map{|i| i.last["title"]}).flatten!
-	links.push(page['result']['advertisements'].map{|i| " http://ab.onliner.by/car/#{i.last["id"]} "}).flatten!
+	cars_on_page = page['result']['advertisements']
+	 
+	cars.push(cars_on_page.map{|i| i.last["title"]}).flatten!
+	links.push(cars_on_page.map{|i| " http://ab.onliner.by/car/#{i.last["id"]} "}).flatten!
 	costs.push(Nokogiri::HTML(page['result']['content']).css('tr.carRow').map{|x| x.css('p.small').children.first.text.to_i.to_s}).flatten!
 end
 
